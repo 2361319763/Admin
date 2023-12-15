@@ -1,0 +1,23 @@
+@import 'highlight.js/styles/dark.css';
+
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  min-height: 35px;
+  padding: 0 !important;
+  text-align: left;
+}
+.code-block {
+  position: relative;
+}
+.copy_btn {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+.hljs-code-number {
+  list-style-type: none !important;
+  color: #333 !important;
+  padding: 0 10px !important;
+}
