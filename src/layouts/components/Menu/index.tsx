@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, Spin } from "antd";
-import { getOpenKeys, findAllBreadcrumb, searchRoute } from "@/utils/util";
-import { connect } from "react-redux";
-import { useAppSelector, useAppDispatch } from '@/modules/store';
+import { getOpenKeys } from "@/utils/util";
+import { useAppSelector } from '@/modules/store';
 import { selectSettings } from '@/modules/settings';
 import { selectPermission } from '@/modules/permission';
 import type { MenuProps } from "antd";
@@ -16,7 +15,6 @@ const LayoutMenu: React.FC = () => {
 
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
 	const [openKeys, setOpenKeys] = useState<string[]>([]);
-  const dispatch = useAppDispatch();
 	const { isCollapse } = useAppSelector(selectSettings);
 	const { routes } = useAppSelector(selectPermission);
 
@@ -27,7 +25,14 @@ const LayoutMenu: React.FC = () => {
 	}, [pathname, isCollapse]);
 
   useEffect(()=>{
-    setMenuList(deepLoopFloat(routes));
+    setMenuList([
+      {
+        key: "/",
+        icon: <Icons.HomeOutlined />,
+        label: "首页",
+      },
+      ...deepLoopFloat(routes)
+    ]);
   }, [routes])
 
   // 设置当前展开的 subMenu

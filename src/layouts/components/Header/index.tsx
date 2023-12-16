@@ -1,14 +1,15 @@
 import { Layout } from "antd";
-// import AvatarIcon from "./components/AvatarIcon";
+import { connect } from "react-redux";
+import AvatarIcon from "./components/AvatarIcon";
 import CollapseIcon from "./components/CollapseIcon";
 import BreadcrumbNav from "./components/BreadcrumbNav";
-// import AssemblySize from "./components/AssemblySize";
-// import Language from "./components/Language";
-// import Theme from "./components/Theme";
-// import Fullscreen from "./components/Fullscreen";
+import AssemblySize from "./components/AssemblySize";
+import Theme from "./components/Theme";
+import Fullscreen from "./components/Fullscreen";
 import "./index.less";
 
-const LayoutHeader = () => {
+const LayoutHeader = (props: any) => {
+  const { name } = props;
 	const { Header } = Layout;
 
 	return (
@@ -18,15 +19,16 @@ const LayoutHeader = () => {
 				<BreadcrumbNav />
 			</div>
 			<div className="header-ri">
-				{/* <AssemblySize /> */}
-				{/* <Language /> */}
-				{/* <Theme /> */}
-				{/* <Fullscreen /> */}
-				<span className="username">Hooks</span>
-				{/* <AvatarIcon /> */}
+				<AssemblySize />
+				<Theme />
+				<Fullscreen />
+				<span className="username">{name}</span>
+				<AvatarIcon />
 			</div>
 		</Header>
 	);
 };
 
-export default LayoutHeader;
+const mapStateToProps = (state: any) => state.user;
+export default connect(mapStateToProps)(LayoutHeader);
+// export default LayoutHeader;

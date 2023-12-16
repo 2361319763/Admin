@@ -15,7 +15,7 @@ const initialState: PermissionState = {
   breadcrumbList: []
 };
 
-const permissSlice = createSlice({
+const permissionSlice = createSlice({
   name: namespace,
   initialState,
   reducers: {
@@ -36,6 +36,6 @@ const permissSlice = createSlice({
 
 export const selectPermission = (state: RootState) => state.permission;
 
-export const { setRoutes, setPathData, setBreadcrumbList } = permissSlice.actions;
+export const { setRoutes, setPathData, setBreadcrumbList } = permissionSlice.actions;
 
-export default permissSlice.reducer;
+export default permissionSlice.reducer;

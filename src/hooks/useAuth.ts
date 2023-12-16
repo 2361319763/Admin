@@ -84,7 +84,6 @@ function useAuth(data) {
       el.path = path + `/${el.path}`
       if (el.children && el.children.length) {
         if (el.component === 'ParentView' && !lastRouter) {
-          console.log('ParentView');
           
           el.children.forEach(c => {
             c.path = el.path + '/' + c.path

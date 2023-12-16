@@ -3,7 +3,6 @@ import { Button, Form, Input, message, Col, Image, Row } from "antd";
 import { useNavigate } from "react-router-dom";
 import { getCaptchaImg, login } from "@/api/system/login";
 import { HOME_URL } from "@/config/config";
-import { connect } from "react-redux";
 import { UserOutlined, LockOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { useAppDispatch } from '@/modules/store';
 import { SetToken } from '@/modules/user';

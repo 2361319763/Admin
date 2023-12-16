@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { getToken, setToken, removeToken } from '@/utils/auth';
+import { getToken, setToken } from '@/utils/auth';
 import { getUserInfo } from "@/api/system/login";
 import defAva from '@/assets/images/profile.jpg'
 
@@ -47,7 +47,7 @@ const userSlice = createSlice({
           state.permissions = action.payload.permissions;
         }
         state.avatar = avatar;
-        state.name = user.userName || '';
+        state.name = user.nickName || '';
       })
   },
 })

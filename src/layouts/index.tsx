@@ -10,7 +10,7 @@ import "./index.less"
 
 const LayoutIndex: React.FC = (props: any) => {
   const { Sider, Content } = Layout;
-	const { isCollapse } = props;
+	const { isCollapse, a } = props;
 
   // 获取按钮权限列表
 	const getAuthButtonsList = async () => {
@@ -35,7 +35,7 @@ const LayoutIndex: React.FC = (props: any) => {
   return (
     // 这里不用 Layout 组件原因是切换页面时样式会先错乱然后在正常显示，造成页面闪屏效果
 		<section className="container">
-      <Sider trigger={null} collapsed={isCollapse} width={220} theme="dark">
+      <Sider trigger={null} collapsed={isCollapse} width={220} theme="dark" style={{ background: '#001529' }}>
         <LayoutMenu></LayoutMenu>
       </Sider>
       <Layout>

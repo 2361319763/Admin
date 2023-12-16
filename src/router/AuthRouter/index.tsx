@@ -29,7 +29,6 @@ const AuthRouter = (props: { children: JSX.Element }) => {
         dispatch(setRoutes(rewriteRoutes))
         dispatch(setPathData(pathData))
         dispatch(setBreadcrumbList(breadcrumbList))
-        console.log(rewriteRoutes,pathData,breadcrumbList);
         
         resolve(rewriteRoutes)
       })

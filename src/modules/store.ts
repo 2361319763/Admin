@@ -11,11 +11,13 @@ import { TypedUseSelectorHook, useSelector, useDispatch } from 'react-redux';
 import user from './user';
 import permission from './permission';
 import settings from './settings';
+import tabs from './tabs';
 
 const reducer = combineReducers({
   user,
   permission,
-  settings
+  settings,
+  tabs
 });
 
 export const store = configureStore({

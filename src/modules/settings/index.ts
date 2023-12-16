@@ -36,9 +36,9 @@ const initialState: GlobalState = {
 		// 面包屑导航
 		breadcrumb: false,
 		// 标签页
-		tabs: true,
+		tabs: false,
 		// 页脚
-		footer: true
+		footer: false
 	}
 };
 

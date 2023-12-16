@@ -1,9 +1,10 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import {type AxiosInstance, InternalAxiosRequestConfig, AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
-import { getToken } from '@/utils/auth'
-import { tansParams } from '@/utils'
-import cache from '@/plugins/cache'
+import { getToken, removeToken } from '@/utils/auth';
+import { tansParams } from '@/utils';
+import cache from '@/plugins/cache';
+import { message } from "antd";
 const whiteRetry = new Set(['ECONNABORTED', undefined, 0]);
 
 // 创建 axios 请求实例
@@ -83,15 +84,19 @@ serviceAxios.interceptors.response.use(
       return response.data
     }
     if (code === 401) {
+      message.error(msg);
+      removeToken();
+      window.location.hash = "/login";
       return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
     } else if (code === 500) {
-      // ...
+      message.error(msg);
       return Promise.reject(new Error(msg))
     } else if (code === 601) {
       // ...
       return Promise.reject(new Error(msg))
     } else if (code !== 200) {
       // ...
+      message.error(msg);
       return Promise.reject('error')
     } else {
       return  Promise.resolve(response.data)
