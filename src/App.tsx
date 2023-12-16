@@ -1,5 +1,5 @@
 import React from 'react'
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme } from "antd";
 import useTheme from "@/hooks/useTheme"
 import { connect } from "react-redux";
 import { BrowserRouter } from 'react-router-dom'
@@ -14,7 +14,12 @@ const App: React.FC = (props: any) => {
   
   return (
     <BrowserRouter>
-      <ConfigProvider componentSize={assemblySize}>
+      <ConfigProvider 
+        componentSize={assemblySize} 
+        theme={{
+          algorithm: themeConfig.isDark?theme.darkAlgorithm:theme.defaultAlgorithm
+        }}
+      >
         <AuthRouter>
           <Routes />
         </AuthRouter>

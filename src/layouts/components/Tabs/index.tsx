@@ -42,10 +42,12 @@ const LayoutTabs = (props: any) => {
       }
     }
 		let newTabsList = JSON.parse(JSON.stringify(tabsList));
-		if (tabsList.every((item: any) => item.key !== route.path)) {
-			newTabsList.push({ label: route.meta!.title, key: route.path });
-		}
-		setTabsList(newTabsList);
+    if(newTabsList.findIndex((J:any)=>J.key==route.path)==-1){
+      if (tabsList.every((item: any) => item.key !== route.path)) {
+        newTabsList.push({ label: route.meta!.title, key: route.path });
+      }
+      setTabsList(newTabsList);
+    }
 		setActiveValue(pathname);
 	};
 
@@ -57,7 +59,7 @@ const LayoutTabs = (props: any) => {
 				if (item?.key !== pathname) return;
 				const nextTab = tabsList[index + 1] || tabsList[index - 1];
 				if (!nextTab) return;
-				navigate(nextTab.path);
+				navigate(nextTab.key);
 			});
 		}
 		message.success("你删除了Tabs标签 😆😆😆");

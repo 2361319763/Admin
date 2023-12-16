@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Input } from 'antd';
 
-const UserIndex = () => {
+const RoleIndex = () => {
 
-  const [ count, setCounts ] = useState('缓存')
+  const [ count, setCounts ] = useState('不缓存')
   return (
     <div>
-      <h2>缓存</h2>
+      <h2>不缓存</h2>
       <Input type="text" value={count} onChange={ (e)=>setCounts(e.target.value) } />
     </div>
   )
 }
 
-export default  UserIndex;
+export default  RoleIndex;

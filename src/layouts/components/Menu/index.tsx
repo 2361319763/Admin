@@ -64,14 +64,15 @@ const LayoutMenu: React.FC = () => {
   // 动态渲染 Icon 图标
 	const customIcons: { [key: string]: any } = Icons;
 	const addIcon = (name: string) => {
+    if(name=='#') return '';
 		return React.createElement(customIcons[name]);
 	};
 
   // 处理后台返回菜单 key 值为 antd 菜单需要的 key 值
 	const deepLoopFloat = (menuList: any, newArr: MenuItem[] = []) => {
 		menuList.forEach((item: any) => {
-			if (!item?.children?.length) return newArr.push(getItem(item.meta.title, item.path, item.meta.icon!));
-			newArr.push(getItem(item.meta.title, item.path, item.meta.icon!, deepLoopFloat(item.children,[])));
+			if (!item?.children?.length) return newArr.push(getItem(item.meta.title, item.path, addIcon(item.meta.icon)!));
+			newArr.push(getItem(item.meta.title, item.path, addIcon(item.meta.icon)!, deepLoopFloat(item.children,[])));
 		});
 		return newArr;
 	};
@@ -83,6 +84,9 @@ const LayoutMenu: React.FC = () => {
   // 点击当前菜单跳转页面
 	const navigate = useNavigate();
 	const clickMenu: MenuProps["onClick"] = ({keyPath}) => {
+    if (keyPath[0].indexOf('http')!=-1) {
+      return window.open(keyPath[0], '_blank');
+    }
 		navigate(keyPath[0]);
 	};
 
@@ -91,7 +95,6 @@ const LayoutMenu: React.FC = () => {
 			<Spin spinning={loading} tip="Loading...">
 				<Logo></Logo>
 				<Menu
-					theme="dark"
 					mode="inline"
 					triggerSubMenuAction="click"
 					openKeys={openKeys}

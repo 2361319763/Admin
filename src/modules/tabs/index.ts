@@ -12,7 +12,7 @@ const namespace = 'tabs';
 
 const initialState: TabsState = {
 	tabsActive: HOME_URL,
-	tabsList: [{ label: "首页", key: HOME_URL }]
+	tabsList: [{ label: "首页", key: HOME_URL }],
 };
 
 const tabsSlice = createSlice({
