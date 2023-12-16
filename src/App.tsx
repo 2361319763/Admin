@@ -8,8 +8,6 @@ import useEvents, { GlobalContext } from '@/hooks/useEvents';
 const App: React.FC = (props: any) => {
   const { themeConfig, assemblySize } = props;
   const { state, dispatch } = useEvents();
-
-  console.log('App 被加载')
   // 全局使用主题
 	useTheme(themeConfig);
   
