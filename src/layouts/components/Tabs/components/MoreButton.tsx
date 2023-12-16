@@ -3,15 +3,14 @@ import { DownOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import { HOME_URL } from "@/config/config";
 import type { MenuProps } from 'antd';
-import { useGlobalState } from '@/hooks/useEvents';
+import { useGlobalEvent  } from '@/hooks/useEvents';
 
-type MenuItem = Required<MenuProps>['items']
-// const { useGlobalState } = useEvents();
+type MenuItem = Required<MenuProps>['items'];
 
 const MoreButton = (props: any) => {
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
-	const { dispatch } = useGlobalState();
+	const { dispatchEvent } = useGlobalEvent();
 
 	// close multipleTab
 	const closeMultipleTab = (tabPath?: string) => {
@@ -23,7 +22,9 @@ const MoreButton = (props: any) => {
 	};
 
 	const refresh = () => {
-		dispatch({type:'REFRESH'})
+		console.log('+++');
+		
+		dispatchEvent('REFRESH');
 	}
 
 	const menu = [

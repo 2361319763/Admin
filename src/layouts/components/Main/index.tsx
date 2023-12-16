@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 import { Outlet } from "react-router-dom";
 import KeepAlive,{ AliveScope, useAliveController } from 'react-activation';
 import { useLocation } from "react-router-dom";
 import { HOME_URL } from "@/config/config";
 import type { MenuProps } from 'antd';
-import { useGlobalState } from '@/hooks/useEvents';
+import { useGlobalEvent } from '@/hooks/useEvents';
 import useEffectSkipFirst from '@/hooks/useEffectSkipFirst';
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -18,7 +18,7 @@ const LayoutMain: React.FC = (peops: any) => {
   const [ oleTabsList, setOleTabsList ] = useState<MenuProps['items']>([]);
   const { drop, refresh } = useAliveController();
   const { pathname } = useLocation();
-  const { state } = useGlobalState();
+  const { subscribe, unsubscribe } = useGlobalEvent();
 
   function getDisjointObjectsArray(arr1:any, arr2:any, key:string) {
     const arr2Ids = arr2.map((item:any) => item[key]);
@@ -26,16 +26,29 @@ const LayoutMain: React.FC = (peops: any) => {
     return disjointPart;
   }
   const refreshHandle = () => {
+    console.log(0,pathData,pathname);
     if (pathData[pathname] && !pathData[pathname].meta.noCache) {
       refresh(pathData[pathname].path);
+      console.log(1);
     } else {
-      setKey(prevKey => prevKey + 1)
+      setKey(prevKey => prevKey + 1);
+      console.log(2);
     }
   }
 
   useEffectSkipFirst(()=> {
-    refreshHandle();
-	}, [state.refresh])
+    unsubscribe('REFRESH',() => refreshHandle())
+    subscribe('REFRESH',() => {
+      console.log('---');
+      refreshHandle()
+    })
+	}, [refresh])
+
+  useEffect(()=> {
+    return ()=> {
+      unsubscribe('REFRESH',() => refreshHandle())
+    }
+	}, [])
 
   useEffect(()=> {
     const route = pathData[pathname];

@@ -3,21 +3,17 @@ import { ConfigProvider, theme } from "antd";
 import useTheme from "@/hooks/useTheme";
 import { connect } from "react-redux";
 import Routes from '@/router';
-import useEvents, { GlobalContext } from '@/hooks/useEvents';
+import { GlobalEventProvider  } from '@/hooks/useEvents';
 
 const App: React.FC = (props: any) => {
   const { themeConfig, assemblySize } = props;
-  const { state, dispatch } = useEvents();
 
   console.log('App 被加载')
   // 全局使用主题
 	useTheme(themeConfig);
   
   return (
-    <GlobalContext.Provider value={{
-      state, 
-      dispatch
-    }}>
+    <GlobalEventProvider>
       <ConfigProvider 
         componentSize={assemblySize} 
         theme={{
@@ -26,7 +22,7 @@ const App: React.FC = (props: any) => {
       >
         <Routes />
       </ConfigProvider>
-    </GlobalContext.Provider>
+    </GlobalEventProvider>
   )
 }
 
