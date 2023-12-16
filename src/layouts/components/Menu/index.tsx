@@ -69,8 +69,10 @@ const LayoutMenu: React.FC = (props:any) => {
   // 处理后台返回菜单 key 值为 antd 菜单需要的 key 值
 	const deepLoopFloat = (menuList: any, newArr: MenuItem[] = []) => {
 		menuList.forEach((item: any) => {
-			if (!item?.children?.length) return newArr.push(getItem(item.meta.title, item.path, addIcon(item.meta.icon)!));
-			newArr.push(getItem(item.meta.title, item.path, addIcon(item.meta.icon)!, deepLoopFloat(item.children,[])));
+      if (!item.hidden) {
+        if (!item?.children?.length) return newArr.push(getItem(item.meta.title, item.path, addIcon(item.meta.icon)!));
+        newArr.push(getItem(item.meta.title, item.path, addIcon(item.meta.icon)!, deepLoopFloat(item.children,[])));
+      }
 		});
 		return newArr;
 	};

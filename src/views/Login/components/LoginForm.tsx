@@ -25,6 +25,7 @@ const LoginForm = (props: any) => {
 				navigate(HOME_URL);
 			});
 		} finally {
+			getCaptchaCode();
 			setLoading(false);
 		}
 	};

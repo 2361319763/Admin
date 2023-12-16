@@ -31,7 +31,7 @@ const tabsSlice = createSlice({
   }
 })
 
-export const selectSettings = (state: RootState) => state.tabs;
+export const selectTabs = (state: RootState) => state.tabs;
 
 export const { setTabsActive, setTabsList } = tabsSlice.actions;
 

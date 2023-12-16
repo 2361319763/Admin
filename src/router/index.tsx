@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import lazyLoad from "@/router/utils/lazyLoad";
+import AuthRouter from '@/router/AuthRouter';
 import { LayoutIndex } from "@/router/constant";
 import { useAppSelector } from '@/modules/store';
 import { selectPermission } from '@/modules/permission';
@@ -94,7 +95,13 @@ const Router = () => {
     setRootRoute([...constantRoutes,...dynamicRoutes,...routes])
   }, [routes])
 
-  return <Routes>{renderRoutes(rootRoute)}</Routes>;
+  return (
+    <BrowserRouter>
+      <AuthRouter>
+        <Routes>{renderRoutes(rootRoute)}</Routes>
+      </AuthRouter>
+    </BrowserRouter>
+  );
 }
 
 export default Router;

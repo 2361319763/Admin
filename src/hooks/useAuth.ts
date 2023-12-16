@@ -1,8 +1,3 @@
-import { LayoutIndex } from "@/router/constant";
-
-// 匹配views里面所有的.vue文件
-const modules = import.meta.glob('@/views/**/*.tsx')
-
 // 创建自定义钩子 useCounter
 function useAuth(data) {
   const { permissions, roles } = data;
