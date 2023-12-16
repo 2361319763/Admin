@@ -6,7 +6,7 @@ import "@/styles/common.less";
 import { Provider } from 'react-redux';
 import App from '@/App'
 import store from '@/modules/store';
-import { setupProdMockServer } from '../mock';
+// import { setupProdMockServer } from '../mock';
 import 'virtual:svg-icons-register';
 
 const renderApp = () => {
@@ -17,5 +17,5 @@ const renderApp = () => {
   )
 }
 
-setupProdMockServer();
+// setupProdMockServer();
 renderApp();

@@ -86,7 +86,7 @@ serviceAxios.interceptors.response.use(
     if (code === 401) {
       message.error(msg);
       removeToken();
-      window.location.hash = "/login";
+      window.location.href = "/login";
       return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
     } else if (code === 500) {
       message.error(msg);

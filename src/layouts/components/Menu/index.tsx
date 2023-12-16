@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
 import { Menu, Spin } from "antd";
 import { getOpenKeys } from "@/utils/util";
-import { useAppSelector } from '@/modules/store';
-import { selectSettings } from '@/modules/settings';
-import { selectPermission } from '@/modules/permission';
 import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import Logo from "./components/Logo";
 import "./index.less";
 
-const LayoutMenu: React.FC = () => {
+const LayoutMenu: React.FC = (props:any) => {
   const { pathname } = useLocation();
 
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname]);
 	const [openKeys, setOpenKeys] = useState<string[]>([]);
-	const { isCollapse } = useAppSelector(selectSettings);
-	const { routes } = useAppSelector(selectPermission);
+	const { isCollapse , themeConfig: { isDark } } = props.settings;
+	const { routes } = props.permission;
 
   // 刷新页面菜单保持高亮
 	useEffect(() => {
@@ -95,6 +93,7 @@ const LayoutMenu: React.FC = () => {
 			<Spin spinning={loading} tip="Loading...">
 				<Logo></Logo>
 				<Menu
+          theme={isDark?undefined:'dark'}
 					mode="inline"
 					triggerSubMenuAction="click"
 					openKeys={openKeys}
@@ -108,4 +107,5 @@ const LayoutMenu: React.FC = () => {
   )
 }
 
-export default LayoutMenu;
+const mapStateToProps = (state: any) => state;
+export default connect(mapStateToProps)(LayoutMenu);

@@ -16,14 +16,27 @@ const LayoutTabs = (props: any) => {
 	const { themeConfig } = props.settings;
 	const { pathData } = props.permission;
 	const { setTabsList } = props;
-	const { TabPane } = Tabs;
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
 	const [activeValue, setActiveValue] = useState<string>(pathname);
+	const [items, setItem] = useState();
 
 	useEffect(() => {
 		addTabs();
 	}, [pathname]);
+
+	useEffect(()=> {
+		setItem(()=>(
+			tabsList.map((item:any)=>({
+				key: item?.key,
+				closable: item?.key !== HOME_URL,
+				label: (<span>
+									{item?.key == HOME_URL ? <HomeFilled /> : ""}
+									{item?.label}
+								</span>)
+			}))
+		))
+	}, [tabsList])
 
 	// click tabs
 	const clickTabs = (path: string) => {
@@ -79,21 +92,8 @@ const LayoutTabs = (props: any) => {
 						onEdit={path => {
 							delTabs(path as string);
 						}}
+						items={items}
 					>
-						{tabsList.map((item: MenuItem) => {
-							return (
-								<TabPane
-									key={item?.key}
-									tab={
-										<span>
-											{item?.key == HOME_URL ? <HomeFilled /> : ""}
-											{item?.label}
-										</span>
-									}
-									closable={item?.key !== HOME_URL}
-								></TabPane>
-							);
-						})}
 					</Tabs>
 					<MoreButton tabsList={tabsList} delTabs={delTabs} setTabsList={setTabsList}></MoreButton>
 				</div>

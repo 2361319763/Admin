@@ -75,7 +75,6 @@ const renderRoutes = (routes: RouteInterface[] | undefined): JSX.Element[] => {
 
   return routes.map((route: RouteInterface,index: number) => {
     const { path, children } = route;
-    // console.log(path);
     
     return (
       <Route key={index} path={path} element={elementDom(route) }>

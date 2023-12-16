@@ -34,7 +34,7 @@ const Theme = (props: any) => {
 				onClose={() => {
 					setVisible(false);
 				}}
-				visible={visible}
+				open={visible}
 				width={320}
 			>
 				{/* 全局主题 */}

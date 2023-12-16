@@ -5,21 +5,39 @@ import KeepAlive,{ AliveScope, useAliveController } from 'react-activation';
 import { useLocation } from "react-router-dom";
 import { HOME_URL } from "@/config/config";
 import type { MenuProps } from 'antd';
+import emitter from '@/utils/mitt'
 
 type MenuItem = Required<MenuProps>['items'][number];
 
 const LayoutMain: React.FC = (peops: any) => {
   const { pathData } = peops.permission;
-  const { tabsList, previousTabsList } = peops.tabs;
+  const { tabsList } = peops.tabs;
   const [ noCache, setnoCache ] = useState<boolean>(true);
-  const [ oleTabsList, seOleTabsList ] = useState<MenuProps['items']>([]);
+  const [ key, setKey ] = useState<number>(0);
+  const [ oleTabsList, setOleTabsList ] = useState<MenuProps['items']>([]);
   const { drop, refresh } = useAliveController();
   const { pathname } = useLocation();
 
-  useEffect(()=> {
-    console.log('LayoutMain');
-    
-  }, [])
+  function getDisjointObjectsArray(arr1:any, arr2:any, key:string) {
+    const arr2Ids = arr2.map((item:any) => item[key]);
+    const disjointPart = arr1.filter((item:any) => !arr2Ids.includes(item[key]));
+    return disjointPart;
+  }
+
+  useEffect(()=> {  
+    const refreshHandle = (e:any) => {
+      if (pathData[e] && !pathData[e].meta.noCache) {
+        console.log(pathData[e].path,pathname);
+        refresh(pathData[e].path);
+      } else {
+        setKey(prevKey => prevKey + 1)
+      }
+    }
+    emitter.on('refresh', refreshHandle);
+		return () => {
+      emitter.off('refresh', refreshHandle);
+		}
+	}, [])
 
   useEffect(()=> {
     const route = pathData[pathname];
@@ -30,15 +48,8 @@ const LayoutMain: React.FC = (peops: any) => {
     }
   }, [pathname])
 
-  function getDisjointObjectsArray(arr1:any, arr2:any, key:string) {
-    const arr2Ids = arr2.map((item:any) => item[key]);
-    const disjointPart = arr1.filter((item:any) => !arr2Ids.includes(item[key]));
-    return disjointPart;
-  }
-
   useEffect(()=> {
-    seOleTabsList(tabsList);
-    console.log(oleTabsList,tabsList,);
+    setOleTabsList(tabsList);
     getDisjointObjectsArray(oleTabsList,tabsList,'key').forEach((element:MenuItem) => {
       const route = pathData[element?.key || ''];
       if (!route.meta.noCache && route.path) {
@@ -54,7 +65,7 @@ const LayoutMain: React.FC = (peops: any) => {
         </KeepAlive>
       }
       {
-        noCache && <Outlet />
+        noCache && <Outlet key={key} />
       }
     </AliveScope>
   )
