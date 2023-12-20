@@ -44,8 +44,7 @@ const userSlice = createSlice({
         const avatar = (user.avatar == "" || user.avatar == null) ? defAva : import.meta.env.VITE_APP_BASE_API + user.avatar;
         if (action.payload.roles && action.payload.roles.length > 0) { // 验证返回的roles是否是一个非空数组
           state.roles = action.payload.roles;
-          // state.permissions = action.payload.permissions;
-          state.permissions = ['home:list'];
+          state.permissions = action.payload.permissions;
         }
         state.avatar = avatar;
         state.name = user.nickName || '';

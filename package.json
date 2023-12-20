@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/pro-components": "^2.6.43",
     "@emotion/styled": "^11.11.0",
     "@reduxjs/toolkit": "^2.0.1",
     "antd": "^5.12.2",

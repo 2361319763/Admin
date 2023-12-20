@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, Input } from 'antd';
 import PermissionControlled from "@/components/PermissionControlled"
 
 function Index() {
   const [ count, setCounts ] = useState('非受控组件')
-
+  useEffect(()=>{
+    console.log('home');
+    
+  }, [])
   return (
     <Card 
       hoverable 

@@ -64,8 +64,8 @@ const LoginForm = (props: any) => {
 			</Form.Item>
 			<Row>
 				<Col flex={3}>
-					<Form.Item name="code" rules={[{ required: true, message: "请输入用户名" }]}>
-						<Input placeholder="用户名：admin / user" prefix={<UserOutlined />} />
+					<Form.Item name="code" rules={[{ required: true, message: "请输入验证码" }]}>
+						<Input placeholder="验证码" />
 					</Form.Item>
 				</Col>
 				<Col flex={2}>

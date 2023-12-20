@@ -15,7 +15,7 @@ const Login = () => {
 				<div className="login-form">
 					<div className="login-logo">
 						<img className="login-icon" src={logo} alt="logo" />
-						<span className="logo-text">Hooks-Admin</span>
+						<span className="logo-text">Ruoyi-React</span>
 					</div>
 					<LoginForm />
 				</div>

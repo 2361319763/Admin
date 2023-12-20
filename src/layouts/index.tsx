@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Layout, theme } from "antd";
+import { Layout } from "antd";
 import { connect } from "react-redux";
 import LayoutMenu from "./components/Menu";
 import LayoutHeader from "./components/Header";
@@ -12,9 +12,6 @@ import "./index.less"
 const LayoutIndex: React.FC = (props: any) => {
   const { Sider, Content } = Layout;
 	const { isCollapse, setIsCollapse } = props;
-	const {
-    token: { colorBgContainer },
-  } = theme.useToken()
 
 	// 监听窗口大小变化
 	const listeningWindow = () => {
@@ -39,13 +36,8 @@ const LayoutIndex: React.FC = (props: any) => {
       <Layout>
 				<LayoutHeader></LayoutHeader>
 				<LayoutTabs></LayoutTabs>
-				<Content style={{
-					margin: '16px',
-					padding: 24,
-					minHeight: 280,
-					background: colorBgContainer,
-				}}>
-					<LayoutMain></LayoutMain>
+				<Content>
+					<LayoutMain></LayoutMain> 
 				</Content>
 				<LayoutFooter></LayoutFooter>
       </Layout>

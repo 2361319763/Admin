@@ -75,7 +75,7 @@ const LayoutTabs = (props: any) => {
 				navigate(nextTab.key);
 			});
 		}
-		message.success("你删除了Tabs标签 😆😆😆");
+		// message.success("你删除了Tabs标签 😆😆😆");
 		setTabsList(tabsList.filter((item: MenuItem) => item?.key !== tabPath));
 	};
 
