@@ -60,7 +60,7 @@ const LoginForm = (props: any) => {
 				<Input placeholder="用户名：admin / user" prefix={<UserOutlined />} />
 			</Form.Item>
 			<Form.Item name="password" rules={[{ required: true, message: "请输入密码" }]}>
-				<Input.Password autoComplete="new-password" placeholder="密码：123456" prefix={<LockOutlined />} />
+				<Input.Password autoComplete="new-password" placeholder="admin123" prefix={<LockOutlined />} />
 			</Form.Item>
 			<Row>
 				<Col flex={3}>
