@@ -7,6 +7,7 @@ import { HOME_URL } from "@/config/config";
 import type { MenuProps } from 'antd';
 import { useGlobalState } from '@/hooks/useEvents';
 import useEffectSkipFirst from '@/hooks/useEffectSkipFirst';
+import { getComponentForPath } from "@/utils/util";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -26,8 +27,9 @@ const LayoutMain: React.FC = (peops: any) => {
     return disjointPart;
   }
   const refreshHandle = () => {
-    if (pathData[pathname] && !pathData[pathname].meta.noCache) {
-      refresh(pathData[pathname].path);
+    let route = pathData[pathname] || getComponentForPath(pathData,pathname);
+    if (route && !route.meta.noCache) {
+      refresh(route.path);
     } else {
       setKey(prevKey => prevKey + 1)
     }
@@ -38,9 +40,9 @@ const LayoutMain: React.FC = (peops: any) => {
 	}, [state.refresh])
 
   useEffect(()=> {
-    const route = pathData[pathname];
+    const route = pathData[pathname] || getComponentForPath(pathData,pathname);
     if (pathname != HOME_URL) {
-      setnoCache(route.meta.noCache);
+      route && setnoCache(route.meta.noCache);
     } else {
       setnoCache(true);
     }
@@ -58,7 +60,8 @@ const LayoutMain: React.FC = (peops: any) => {
   return (
     <AliveScope>
       {
-        !noCache && <KeepAlive autoFreeze={false} when={true} cacheKey={pathname} name={pathname}>
+        !noCache && 
+        <KeepAlive autoFreeze={false} when={true} cacheKey={pathname} name={pathname}>
           <Outlet />
         </KeepAlive>
       }

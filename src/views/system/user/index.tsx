@@ -357,7 +357,7 @@ const UserTableList: React.FC = () => {
     <div>
       {contextHolder}
       <Row gutter={[16, 24]}>
-        <Col lg={6} md={24}>
+        <Col lg={4} md={24}>
           <Card>
             <DeptTree
               onSelect={async (value: any) => {
@@ -369,7 +369,7 @@ const UserTableList: React.FC = () => {
             />
           </Card>
         </Col>
-        <Col lg={18} md={24}>
+        <Col lg={20} md={24}>
           <ProTable<API.System.User>
             headerTitle="信息"
             actionRef={actionRef}
@@ -519,6 +519,8 @@ const UserTableList: React.FC = () => {
           }
           if (success) {
             setModalVisible(false);
+            setRoleIds([]);
+            setPostIds([]);
             setCurrentRow(undefined);
             if (actionRef.current) {
               actionRef.current.reload();
@@ -527,6 +529,8 @@ const UserTableList: React.FC = () => {
         }}
         onCancel={() => {
           setModalVisible(false);
+          setRoleIds([]);
+          setPostIds([]);
           setCurrentRow(undefined);
         }}
         open={modalVisible}

@@ -18,7 +18,7 @@ const AuthRoleForm: React.FC<AuthRoleFormProps> = (props) => {
   useEffect(() => {
     form.resetFields();
     form.setFieldValue('roleIds', props.roleIds);
-  });
+  },[form, props]);
 
   const handleOk = () => {
     form.submit();
@@ -36,18 +36,17 @@ const AuthRoleForm: React.FC<AuthRoleFormProps> = (props) => {
       title="分配角色"
       open={props.open}
       destroyOnClose
-      forceRender
       onOk={handleOk}
       onCancel={handleCancel}
     >
       <ProForm
-        form={form}
         grid={true}
+        form={form}
         layout="horizontal"
         onFinish={handleFinish}
+        submitter={false}
         initialValues={{
-          login_password: '',
-          confirm_password: '',
+          roleIds: [],
         }}
       >
         <ProFormSelect

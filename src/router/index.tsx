@@ -76,7 +76,6 @@ const renderRoutes = (routes: RouteInterface[] | undefined): JSX.Element[] => {
 
   return routes.map((route: RouteInterface,index: number) => {
     const { path, children } = route;
-    
     return (
       <Route key={index} path={path} element={elementDom(route) }>
         {children && children.length > 0 && (
@@ -93,6 +92,8 @@ const Router = () => {
 
   useEffect(()=> {
     setRootRoute([...constantRoutes,...dynamicRoutes,...routes])
+    console.log(rootRoute,routes);
+    
   }, [routes])
 
   return (

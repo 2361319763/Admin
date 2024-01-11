@@ -6,6 +6,7 @@ import { HOME_URL } from "@/config/config";
 import { connect } from "react-redux";
 import { setTabsList } from "@/modules/tabs";
 import MoreButton from "./components/MoreButton";
+import { getComponentForPath } from "@/utils/util";
 import type { MenuProps } from 'antd';
 import "./index.less";
 
@@ -31,9 +32,9 @@ const LayoutTabs = (props: any) => {
 				key: item?.key,
 				closable: item?.key !== HOME_URL,
 				label: (<span>
-									{item?.key == HOME_URL ? <HomeFilled /> : ""}
-									{item?.label}
-								</span>)
+					{item?.key == HOME_URL ? <HomeFilled /> : ""}
+					{item?.label}
+				</span>)
 			}))
 		))
 	}, [tabsList])
@@ -45,7 +46,7 @@ const LayoutTabs = (props: any) => {
 
 	// add tabs
 	const addTabs = () => {
-		let route = pathData[pathname];
+		let route = pathData[pathname] || getComponentForPath(pathData,pathname);
     if (pathname==HOME_URL) {
       route = {
         path: HOME_URL,
@@ -55,13 +56,15 @@ const LayoutTabs = (props: any) => {
       }
     }
 		let newTabsList = JSON.parse(JSON.stringify(tabsList));
-    if(newTabsList.findIndex((J:any)=>J.key==route.path)==-1){
+		
+    if(route && newTabsList.findIndex((J:any)=>J.key==route.path)==-1){
       if (tabsList.every((item: any) => item.key !== route.path)) {
         newTabsList.push({ label: route.meta!.title, key: route.path });
       }
       setTabsList(newTabsList);
     }
-		setActiveValue(pathname);
+		
+		route && setActiveValue(route.path);
 	};
 
 	// delete tabs

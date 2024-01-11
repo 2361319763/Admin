@@ -108,3 +108,11 @@ export const getBreadcrumbList = (path: string, menuList: any) => {
 		return tempPath.map(item => item.title);
 	}
 };
+
+export function getComponentForPath(jsonStructure:any, targetPath:string) {
+	// 移除路径末尾的具体值，将其替换为通配符 ":id"
+	const pathWithWildcard = targetPath.replace(/\d+$/, ':id');
+	// 查找对应的组件值
+	const component = jsonStructure[pathWithWildcard];
+	return component || null;
+}
