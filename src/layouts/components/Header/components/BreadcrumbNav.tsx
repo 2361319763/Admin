@@ -5,6 +5,7 @@ import { HOME_URL } from "@/config/config";
 import { connect } from "react-redux";
 import { selectPermission } from '@/modules/permission';
 import { useAppSelector } from '@/modules/store';
+import { getComponentForPath } from "@/utils/util";
 
 const BreadcrumbNav: React.FC = (props: any) => {
   const { pathname } = useLocation();
@@ -13,8 +14,9 @@ const BreadcrumbNav: React.FC = (props: any) => {
   const [ breadcrumb, setBreadcrumb ] = useState<any>();
 
   useEffect(() => {
-    if (breadcrumbList[pathname]) {
-      const $breadcrumb = breadcrumbList[pathname].map(J=>({
+    const $breadcrumbList = breadcrumbList[pathname] || getComponentForPath(breadcrumbList,pathname);
+    if ($breadcrumbList) {
+      const $breadcrumb = $breadcrumbList.map(J=>({
         title: J.meta.title,
         key: J.path
       }))

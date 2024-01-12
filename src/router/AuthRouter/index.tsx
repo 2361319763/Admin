@@ -3,7 +3,7 @@ import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from '@/modules/store';
 import { selectUser, GetInfo } from '@/modules/user';
 import { setRoutes, setPathData, setBreadcrumbList } from '@/modules/permission';
-import { getRouters } from '@/api/menu';
+import { getRouters } from '@/api/index';
 import { getPathData, findAllBreadcrumb } from '@/utils/util';
 import useAuth, { filterAsyncRouter } from '@/hooks/useAuth';
 
